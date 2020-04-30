@@ -1,3 +1,4 @@
+import 'package:curated/screens/homeScreen.dart';
 import 'package:flutter/material.dart';
 import 'widgets/mainDrawer.dart';
 
@@ -34,9 +35,7 @@ class MyHomePage extends StatelessWidget {
         title: Text("Home"),
       ),
       drawer: MainDrawer(),
-      body: Center(
-        child: Text("This is home page"),
-      ),
+      body: HomeScreen(),
     );
   }
 }
