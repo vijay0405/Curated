@@ -38,7 +38,7 @@ class MainDrawer extends StatelessWidget {
         SizedBox(
           height: 20,
         ),
-        buildListTile("Settings", Icons.settings, () {
+        buildListTile("Filters", Icons.filter_list, () {
           Navigator.of(context).pushReplacementNamed('/');
         }),
         

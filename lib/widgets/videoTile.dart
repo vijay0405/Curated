@@ -5,7 +5,6 @@ class VideoTile extends StatelessWidget {
   final String title;
   final String imageUrl;
 
-
   VideoTile({this.id, this.title, this.imageUrl});
 
   @override
@@ -31,11 +30,11 @@ class VideoTile extends StatelessWidget {
                       fit: BoxFit.cover,
                     )),
                 Positioned(
-                  bottom: 20,
-                  right: 10,
+                  bottom: 0,
+                  right: 0,
                   child: Container(
                     width: 300,
-                    color: Colors.black54,
+                    color: Colors.black38,
                     padding: EdgeInsets.symmetric(vertical: 5, horizontal: 20),
                     child: Text(
                       title,
@@ -44,45 +43,67 @@ class VideoTile extends StatelessWidget {
                       overflow: TextOverflow.fade,
                     ),
                   ),
-                )
+                ),
+                Positioned(
+                  top: 0,
+                  right: 0,
+                  child: Container(
+                    width: 50,
+                    color: Colors.black54,
+                    margin: EdgeInsets.all(10),
+                    padding: EdgeInsets.all(2),
+                    child: Text(
+                      "33:55",
+                      style: TextStyle(fontSize: 12, color: Colors.white),
+                      softWrap: true,
+                      overflow: TextOverflow.fade,
+                    ),
+                  ),
+                ),
               ],
             ),
             Padding(
-                padding: EdgeInsets.all(20),
+                padding: EdgeInsets.all(8),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
                     Row(
                       children: <Widget>[
                         Icon(
-                          Icons.schedule,
+                          Icons.check_circle,
                         ),
                         SizedBox(
                           width: 6,
                         ),
-                        Text('5:00')
+                        Text(
+                          'Autocar',
+                        )
                       ],
                     ),
                     Row(
                       children: <Widget>[
                         Icon(
-                          Icons.work,
+                          Icons.visibility,
                         ),
                         SizedBox(
                           width: 6,
                         ),
-                        Text('1m')
+                        Text('1m views')
                       ],
                     ),
                     Row(
                       children: <Widget>[
                         Icon(
-                          Icons.attach_money,
+                          Icons.access_time,
                         ),
                         SizedBox(
                           width: 6,
                         ),
-                        Text('Autocar')
+                        Text(
+                          '2 months ago',
+                          softWrap: true,
+                          overflow: TextOverflow.fade,
+                        )
                       ],
                     ),
                   ],
