@@ -4,13 +4,14 @@ class VideoTile extends StatelessWidget {
   final String id;
   final String title;
   final String imageUrl;
+  final Function fetch;
 
-  VideoTile({this.id, this.title, this.imageUrl});
+  VideoTile({this.id, this.title, this.imageUrl, this.fetch});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      // onTap: () => selectMeal(context),
+      onTap: () => fetch(),
       child: Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
         elevation: 4,
