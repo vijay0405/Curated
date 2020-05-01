@@ -31,12 +31,15 @@ class _HomeScreenState extends State<HomeScreen> {
     super.didChangeDependencies();
   }
 
-  _fetchVideos() async {
-    // List<Video> videos =
-    await VideosList()
-        .fetchChannelVideos(channelIds: ['UC6Dy0rQ6zDnQuHQ1EeErGUA']);
-    print("playing video");
-  }
+  // _fetchVideos() async {
+  //   // List<Video> videos =
+  //     Provider.of<VideosList>(context).fetchChannelVideos(channelIds: ['UC6Dy0rQ6zDnQuHQ1EeErGUA']).then((_) {
+  //       setState(() {
+  //         _isLoading = false;
+  //       });
+  //     });
+  //   print("playing video");
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return videos.videosList.length <= 0
         ? Center(
             child: FlatButton.icon(
-                onPressed: _fetchVideos,
+                onPressed: didChangeDependencies,
                 icon: Icon(Icons.cloud_download),
                 label: Text("Fetch Videos")),
           )
@@ -52,10 +55,10 @@ class _HomeScreenState extends State<HomeScreen> {
             itemBuilder: (ctx, index) {
               return VideoTile(
                   id: "1",
-                  title: "Skoda Octavia",
+                  title: videos.videosList[index].title,
                   imageUrl:
-                      "https://i.ytimg.com/vi/bHDtxj5YDNs/hqdefault.jpg?sqp=-oaymwEYCKgBEF5IVfKriqkDCwgBFQAAiEIYAXAB&rs=AOn4CLCnVjhI-mMTOrZ5qvo_csv5ZRFwag",
-                  fetch: _fetchVideos);
+                      videos.videosList[index].thumbnailUrl,
+                  fetch: didChangeDependencies);
             },
             itemCount: videos.videosList.length);
   }
