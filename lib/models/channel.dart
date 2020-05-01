@@ -1,4 +1,4 @@
-import 'video.dart';
+import '../providers/video.dart';
 
 class Channel {
   final String id;

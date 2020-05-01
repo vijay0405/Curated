@@ -1,4 +1,6 @@
-class Video {
+import 'package:flutter/material.dart';
+
+class Video with ChangeNotifier {
   final String id;
   final String title;
   final String thumbnailUrl;

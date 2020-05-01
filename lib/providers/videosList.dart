@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../models/video.dart';
+import '../providers/video.dart';
 import 'package:http/http.dart' as http;
 import '../models/channel.dart';
 import 'dart:io';
@@ -7,13 +7,17 @@ import 'dart:convert';
 import '../keys.dart';
 
 class VideosList with ChangeNotifier {
-  List<Video> videoList = [];
-  VideosList();
+  List<Video> _videoList = [];
+  // VideosList();
+
+  List<Video> get videosList {
+    return _videoList;
+  }
 
   final String _baseUrl = "www.googleapis.com";
   String _nextPageToken = '';
-  Future<List<Video>> fetchChannelVideos({List<String> channelIds}) async {
-    List<Video> videos = [];
+  Future<void> fetchChannelVideos({List<String> channelIds}) async {
+    // _videoList = [];
     channelIds.forEach((id) async {
       Map<String, String> parameters = {
         'part': 'snippet, contentDetails, statistics',
@@ -42,12 +46,13 @@ class VideosList with ChangeNotifier {
           playlistId: channel.uploadPlaylistId,
         );
         // return channel;
-        videos.addAll(channel.videos);
+        _videoList = (channel.videos);
+        notifyListeners();
       } else {
         throw json.decode(response.body)['error']['message'];
       }
     });
-    return videos;
+    // return videos;
   }
 
   Future<List<Video>> fetchVideosFromPlaylist({String playlistId}) async {
