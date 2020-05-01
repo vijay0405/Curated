@@ -51,7 +51,18 @@ class _HomeScreenState extends State<HomeScreen> {
                 icon: Icon(Icons.cloud_download),
                 label: Text("Fetch Videos")),
           )
-        : ListView.builder(
+        : NotificationListener<ScrollNotification>(
+              onNotification: (ScrollNotification scrollDetails) {
+                if (!_isLoading &&
+                    videos.videosList.length != videos.videosList.length &&
+                    scrollDetails.metrics.pixels ==
+                        scrollDetails.metrics.maxScrollExtent) {
+                        VideosList().fetchChannelVideos(channelIds: ['UC6Dy0rQ6zDnQuHQ1EeErGUA']);
+                }
+                return false;
+              },
+        child: 
+        ListView.builder(
             itemBuilder: (ctx, index) {
               return VideoTile(
                   id: "1",
@@ -60,6 +71,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       videos.videosList[index].thumbnailUrl,
                   fetch: didChangeDependencies);
             },
-            itemCount: videos.videosList.length);
+            itemCount: videos.videosList.length),
+        )
+        
+        
   }
 }

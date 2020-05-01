@@ -46,7 +46,7 @@ class VideosList with ChangeNotifier {
           playlistId: channel.uploadPlaylistId,
         );
         // return channel;
-        _videoList = (channel.videos);
+        _videoList.addAll(channel.videos);
         notifyListeners();
       } else {
         throw json.decode(response.body)['error']['message'];
