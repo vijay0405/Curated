@@ -19,8 +19,10 @@ class _HomeScreenState extends State<HomeScreen> {
       setState(() {
         _isLoading = true;
       });
-      Provider.of<VideosList>(context).fetchChannelVideos(
-          channelIds: ['UCBJycsmduvYEL83R_U4JriQ', 'UCXGgrKt94gR6lmN4aN3mYTg']).then((_) {
+      Provider.of<VideosList>(context).fetchChannelVideos(channelIds: [
+        'UCBJycsmduvYEL83R_U4JriQ',
+        'UCXGgrKt94gR6lmN4aN3mYTg'
+      ]).then((_) {
         setState(() {
           _isLoading = false;
         });
@@ -30,12 +32,12 @@ class _HomeScreenState extends State<HomeScreen> {
     super.didChangeDependencies();
   }
 
-    _loadMoreVideos() async {
+  _loadMoreVideos() async {
     _isLoading = true;
-    await VideosList().fetchChannelVideos(channelIds: ['UCBJycsmduvYEL83R_U4JriQ', 'UCXGgrKt94gR6lmN4aN3mYTg']);
+    await VideosList().fetchChannelVideos(
+        channelIds: ['UCBJycsmduvYEL83R_U4JriQ', 'UCXGgrKt94gR6lmN4aN3mYTg']);
     _isLoading = false;
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -50,8 +52,8 @@ class _HomeScreenState extends State<HomeScreen> {
         : NotificationListener<ScrollNotification>(
             onNotification: (ScrollNotification scrollDetails) {
               if (scrollDetails.metrics.pixels ==
-                      scrollDetails.metrics.maxScrollExtent) {
-                        _loadMoreVideos();
+                  scrollDetails.metrics.maxScrollExtent) {
+                _loadMoreVideos();
                 // VideosList().fetchChannelVideos(
                 //     channelIds: ['UCBJycsmduvYEL83R_U4JriQ', 'UCXGgrKt94gR6lmN4aN3mYTg']);
               }
@@ -59,11 +61,15 @@ class _HomeScreenState extends State<HomeScreen> {
             },
             child: ListView.builder(
                 itemBuilder: (ctx, index) {
-                  return VideoTile(
-                      id: "1",
-                      title: videos.videosList[index].title,
-                      imageUrl: videos.videosList[index].thumbnailUrl,
-                      fetch: didChangeDependencies);
+                  return Dismissible(
+                    direction: DismissDirection.endToStart,
+                    key: Key(videos.videosList[index].thumbnailUrl),
+                    child: VideoTile(
+                        id: "1",
+                        title: videos.videosList[index].title,
+                        imageUrl: videos.videosList[index].thumbnailUrl,
+                        fetch: didChangeDependencies),
+                  );
                 },
                 itemCount: videos.videosList.length),
           );
