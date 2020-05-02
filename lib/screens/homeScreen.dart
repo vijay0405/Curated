@@ -10,10 +10,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
   var _isInit = true;
   var _isLoading = false;
-
 
   @override
   void didChangeDependencies() {
@@ -21,7 +19,8 @@ class _HomeScreenState extends State<HomeScreen> {
       setState(() {
         _isLoading = true;
       });
-      Provider.of<VideosList>(context).fetchChannelVideos(channelIds: ['UC6Dy0rQ6zDnQuHQ1EeErGUA']).then((_) {
+      Provider.of<VideosList>(context).fetchChannelVideos(
+          channelIds: ['UC6Dy0rQ6zDnQuHQ1EeErGUA']).then((_) {
         setState(() {
           _isLoading = false;
         });
@@ -52,28 +51,23 @@ class _HomeScreenState extends State<HomeScreen> {
                 label: Text("Fetch Videos")),
           )
         : NotificationListener<ScrollNotification>(
-              onNotification: (ScrollNotification scrollDetails) {
-                if (!_isLoading &&
-                    videos.videosList.length != videos.videosList.length &&
-                    scrollDetails.metrics.pixels ==
-                        scrollDetails.metrics.maxScrollExtent) {
-                        VideosList().fetchChannelVideos(channelIds: ['UC6Dy0rQ6zDnQuHQ1EeErGUA']);
-                }
-                return false;
-              },
-        child: 
-        ListView.builder(
-            itemBuilder: (ctx, index) {
-              return VideoTile(
-                  id: "1",
-                  title: videos.videosList[index].title,
-                  imageUrl:
-                      videos.videosList[index].thumbnailUrl,
-                  fetch: didChangeDependencies);
+            onNotification: (ScrollNotification scrollDetails) {
+              if (scrollDetails.metrics.pixels ==
+                      scrollDetails.metrics.maxScrollExtent) {
+                VideosList().fetchChannelVideos(
+                    channelIds: ['UC6Dy0rQ6zDnQuHQ1EeErGUA']);
+              }
+              return false;
             },
-            itemCount: videos.videosList.length),
-        )
-        
-        
+            child: ListView.builder(
+                itemBuilder: (ctx, index) {
+                  return VideoTile(
+                      id: "1",
+                      title: videos.videosList[index].title,
+                      imageUrl: videos.videosList[index].thumbnailUrl,
+                      fetch: didChangeDependencies);
+                },
+                itemCount: videos.videosList.length),
+          );
   }
 }

@@ -31,21 +31,6 @@ class VideoTile extends StatelessWidget {
                       fit: BoxFit.cover,
                     )),
                 Positioned(
-                  bottom: 0,
-                  right: 0,
-                  child: Container(
-                    width: 300,
-                    color: Colors.black38,
-                    padding: EdgeInsets.symmetric(vertical: 5, horizontal: 20),
-                    child: Text(
-                      title,
-                      style: TextStyle(fontSize: 26, color: Colors.white),
-                      softWrap: true,
-                      overflow: TextOverflow.fade,
-                    ),
-                  ),
-                ),
-                Positioned(
                   top: 0,
                   right: 0,
                   child: Container(
@@ -63,6 +48,12 @@ class VideoTile extends StatelessWidget {
                 ),
               ],
             ),
+
+            Padding(
+                padding: EdgeInsets.all(8),
+                child: Text(title,  style: TextStyle(fontWeight: FontWeight.bold))
+                ),
+
             Padding(
                 padding: EdgeInsets.all(8),
                 child: Row(
