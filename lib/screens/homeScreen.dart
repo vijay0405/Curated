@@ -20,7 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
         _isLoading = true;
       });
       Provider.of<VideosList>(context).fetchChannelVideos(
-          channelIds: ['UC6Dy0rQ6zDnQuHQ1EeErGUA']).then((_) {
+          channelIds: ['UCBJycsmduvYEL83R_U4JriQ', 'UCXGgrKt94gR6lmN4aN3mYTg']).then((_) {
         setState(() {
           _isLoading = false;
         });
@@ -30,15 +30,12 @@ class _HomeScreenState extends State<HomeScreen> {
     super.didChangeDependencies();
   }
 
-  // _fetchVideos() async {
-  //   // List<Video> videos =
-  //     Provider.of<VideosList>(context).fetchChannelVideos(channelIds: ['UC6Dy0rQ6zDnQuHQ1EeErGUA']).then((_) {
-  //       setState(() {
-  //         _isLoading = false;
-  //       });
-  //     });
-  //   print("playing video");
-  // }
+    _loadMoreVideos() async {
+    _isLoading = true;
+    await VideosList().fetchChannelVideos(channelIds: ['UCBJycsmduvYEL83R_U4JriQ', 'UCXGgrKt94gR6lmN4aN3mYTg']);
+    _isLoading = false;
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -54,8 +51,9 @@ class _HomeScreenState extends State<HomeScreen> {
             onNotification: (ScrollNotification scrollDetails) {
               if (scrollDetails.metrics.pixels ==
                       scrollDetails.metrics.maxScrollExtent) {
-                VideosList().fetchChannelVideos(
-                    channelIds: ['UC6Dy0rQ6zDnQuHQ1EeErGUA']);
+                        _loadMoreVideos();
+                // VideosList().fetchChannelVideos(
+                //     channelIds: ['UCBJycsmduvYEL83R_U4JriQ', 'UCXGgrKt94gR6lmN4aN3mYTg']);
               }
               return false;
             },
