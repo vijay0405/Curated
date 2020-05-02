@@ -15,7 +15,7 @@ class VideosList with ChangeNotifier {
   }
 
   final String _baseUrl = "www.googleapis.com";
-  String _nextPageToken = '';
+  Map _nextPageToken = {};
   Future<void> fetchChannelVideos({List<String> channelIds}) async {
     // _videoList = [];
     channelIds.forEach((id) async {
@@ -56,11 +56,12 @@ class VideosList with ChangeNotifier {
   }
 
   Future<List<Video>> fetchVideosFromPlaylist({String playlistId}) async {
+    _nextPageToken[playlistId] = "";
     Map<String, String> parameters = {
       'part': 'snippet',
       'playlistId': playlistId,
       'maxResults': '8',
-      'pageToken': _nextPageToken,
+      'pageToken': _nextPageToken[playlistId],
       'key': api_key,
     };
     Uri uri = Uri.https(
@@ -76,7 +77,7 @@ class VideosList with ChangeNotifier {
     if (response.statusCode == 200) {
       var data = json.decode(response.body);
 
-      _nextPageToken = data['nextPageToken'] ?? '';
+      _nextPageToken[playlistId] = data['nextPageToken'] ?? '';
       List<dynamic> videosJson = data['items'];
 
       // Fetch first eight videos from uploads playlist
